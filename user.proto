@@ -9,7 +9,7 @@ message client_hello
 {
 	required string client = 1;
 	required uint32 version = 2;
-	optional bytes random_key = 3;
+	required bytes random_key = 3;
 }
 
 message server_hello
