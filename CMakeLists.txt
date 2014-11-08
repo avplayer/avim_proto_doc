@@ -1,10 +1,12 @@
 cmake_minimum_required(VERSION 2.8.9)
 # include(./FindProtobuf.cmake)
 
+PROTOBUF_GENERATE_CPP(PROTO_ADDRESS PROTO_ADDRESS_HDRS address.proto)
 PROTOBUF_GENERATE_CPP(PROTO_MESSAGE PROTO_MESSAGE_HDRS message.proto)
 PROTOBUF_GENERATE_CPP(PROTO_USER PROTO_USER_HDRS user.proto)
+PROTOBUF_GENERATE_CPP(PROTO_IM PROTO_IM_HDRS im.proto)
 
-add_library(avimproto STATIC ${PROTO_USER} ${PROTO_MESSAGE})
+add_library(avimproto STATIC ${PROTO_ADDRESS} ${PROTO_USER} ${PROTO_MESSAGE} ${PROTO_IM})
 target_link_libraries(avimproto ${PROTOBUF_LIBRARIES})
 
 set_target_properties(avimproto PROPERTIES POSITION_INDEPENDENT_CODE ON)

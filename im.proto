@@ -1,0 +1,37 @@
+
+package proto;
+
+//=====================================================================================================
+// 下面的消息定义,都是定义在 avPacket 的 payload 里面的. payload 里的消息直接调用 serialization.hpp 反序列化出来
+//=====================================================================================================
+
+// 这些消息是由 IM 客户端处理的, IM 消息.
+
+message text_message{
+	required string text = 1;
+	optional string fontname = 2;
+	optional float fontsie = 3;
+	optional string hlink = 4;
+}
+
+message img_message{
+	// 图片, 类型隐去.
+	required bytes image = 1;
+	optional bytes image_digest = 2;
+	optional string hlink = 4;
+};
+
+message emoji_message{
+	required string emoji = 1;
+	optional string theme = 2;
+	optional bytes custom_image = 3;
+};
+
+message avim_message{
+	optional text_message item_text = 1;
+	optional img_message item_image = 2;
+}
+
+message avim_packet {
+	repeated avim_message avim = 1;
+};
