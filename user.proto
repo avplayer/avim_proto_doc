@@ -24,6 +24,8 @@ message server_hello
 message login
 {
 	required string user_name = 1;
+	// 用私钥将收到的 random_pub_key 加密一下
+	// 如果服务器比对后即证明客户端的身份了
 	required bytes encryped_radom_key = 2;
 	optional string other_info = 3;
 }
