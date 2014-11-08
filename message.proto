@@ -36,6 +36,8 @@ message avPacket{
 	// 只有这个消息是未经过 dest 加密的。这个消息，upperlayerpotocol 一定是 pkask， 当然，消息内容是空的。。。
 	// dest 会回复一个 pkreply 消息。这个消息也是加密的
 
+	// 表示 payload 使用只有群友知道的密码加密的
+//	optional bool synmaptic_encrypted = 12;
 	optional bytes payload = 8;
 }
 

@@ -19,6 +19,8 @@ message server_hello
 	required string servername = 1;
 	required uint32 version = 2;
 	required bytes random_pub_key = 5;
+	// 服务器的 av 地址
+	required string server_av_address = 3;
 }
 
 message login
