@@ -32,6 +32,11 @@ message avim_message{
 	optional img_message item_image = 2;
 }
 
-message avim_packet {
-	repeated avim_message avim = 1;
+// 群聊消息
+message avim_group_message{
+
+}
+
+message avim_message_packet {
+	optional avim_message avim = 1;
 };

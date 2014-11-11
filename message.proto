@@ -3,9 +3,9 @@ package proto;
 import public "address.proto";
 
 // 这个就是基础包， av们相互通信使用的就是这个
-message avPacket{
-	required avAddress src = 1 ; // 发送方地址
-	required avAddress dest = 2; // 目的地地址
+message avpacket{
+	required av_address src = 1 ; // 发送方地址
+	required av_address dest = 2; // 目的地地址
 	optional bytes publickey = 3 ; // 客户端公钥
 	required uint32 time_to_live = 4 [ default = 64 ];
 	required string upperlayerpotocol = 6 [ default = "avim" ] ; // 表明上层软件是何种协议。
@@ -51,11 +51,11 @@ message aGMP {
 	};
 
 	message NOROUTTOHOST{
-		required avAddress host = 1;
+		required av_address host = 1;
 	};
 
 	message TTLOUT{
-		required avAddress host = 1;
+		required av_address host = 1;
 	};
 
 	optional PKREPLY pkreply = 1;
