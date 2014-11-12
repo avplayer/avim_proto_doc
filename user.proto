@@ -91,7 +91,7 @@ message user_register_result{
 		// 名字不符合要求
 		REGISTER_FAILED_NAME_DISALLOW = 3;
 	}
-	required login_result_code result = 1;
+	required user_register_result_code result = 1;
 }
 
 // 如果把证书密钥丢了, 或者密钥设置的加密锁的密码忘了, 那么就需要重新生成证书,
