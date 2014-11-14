@@ -86,14 +86,20 @@ message user_register_result
 	enum user_register_result_code {
 		// 注册成功! 最兴奋的消息了
 		REGISTER_SUCCEED = 0;
+		// 注册成功, 但是 CA 需要时间下发, 等待吧
+		REGISTER_SUCCEED_PENDDING_CERT = 1;
+
 		// 失败, 你手慢了, 名字已经有了
-		REGISTER_FAILED_NAME_TAKEN = 1;
+		REGISTER_FAILED_NAME_TAKEN = 2;
 		// key 长度不符合服务器设定的最小密钥长度规则
 		// 请重新生成密钥
-		REGISTER_FAILED_TOO_SHORT_KEY = 2;
+		REGISTER_FAILED_TOO_SHORT_KEY = 3;
 
 		// 名字不符合要求
-		REGISTER_FAILED_NAME_DISALLOW = 3;
+		REGISTER_FAILED_NAME_DISALLOW = 4;
+
+		// CSR 校验错误
+		REGISTER_FAILED_CSR_VERIFY_FAILURE = 5;
 	}
 	required user_register_result_code result = 1;
 }

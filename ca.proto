@@ -1,0 +1,54 @@
+package proto.ca;
+
+// ===========================================================================
+//   这个是 CA 签名服务器和 avrouter 以及 peter 所使用的 CA 客户端的交互协议
+//   生成命令:
+//       protoc -I=. --cpp_out=. ca.proto
+// ===========================================================================
+
+// avrouter -> CA || CA -> peter
+message csr_push{
+	required bytes csr = 1;
+};
+
+// peter -> CA || CA -> avrouter
+message cert_push{
+	required bytes cert = 1;
+};
+
+message push_ok{
+	// push 过去的 csr 或者 cert 的指纹们
+	// 可以统一应答. 一般要求在 10个 push 内应答
+	// 因此这个列表最多就 10 个.
+	// 通常每个 push 都来一个应答
+	repeated bytes figureprints = 1;
+};
+
+// avrouter -> CA || avim -> avrouter
+message cert_pull{
+	// RSA 公钥的 sha1 摘要
+	required bytes figureprint = 1;
+};
+
+
+// peter -> CA
+// CA 会用 csr_push 应答哦!
+message csr_pull{
+	required bytes figureprint = 1;
+};
+
+
+// peter -> CA.
+// 获取待签发的 CSR 列表
+message csr_pendding {
+	// 等待列队长度
+};
+
+message csr_pendding_list {
+	// 等待列队长度
+	required uint32 num = 1;
+
+	// 各个 CSR 的指纹 (客户 RSA 公钥的 sha1 摘要)
+	repeated bytes figureprints = 2;
+};
+
