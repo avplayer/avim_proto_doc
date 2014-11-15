@@ -98,10 +98,14 @@ message user_register_result
 		// 名字不符合要求
 		REGISTER_FAILED_NAME_DISALLOW = 4;
 
+		// CA 出了问题, 注册失败
+		REGISTER_FAILED_CA_DOWN = 5;
 		// CSR 校验错误
-		REGISTER_FAILED_CSR_VERIFY_FAILURE = 5;
+		REGISTER_FAILED_CSR_VERIFY_FAILURE = 6;
 	}
 	required user_register_result_code result = 1;
+	// 如果是立即返回CERT, 这里就携带了需要的证书了
+	optional bytes cert = 2;
 }
 
 // 如果把证书密钥丢了, 或者密钥设置的加密锁的密码忘了, 那么就需要重新生成证书,
