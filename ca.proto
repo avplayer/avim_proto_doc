@@ -23,7 +23,7 @@ message push_ok{
 	// 可以统一应答. 一般要求在 10个 push 内应答
 	// 因此这个列表最多就 10 个.
 	// 通常每个 push 都来一个应答
-	repeated bytes fingerprint = 1;
+	repeated bytes fingerprints = 1;
 };
 
 // avrouter -> CA || avim -> avrouter
