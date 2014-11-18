@@ -8,12 +8,14 @@ package proto.ca;
 
 // avrouter -> CA || CA -> peter
 message csr_push{
-	required bytes csr = 1;
+	required bytes figureprints = 1;
+	required bytes csr = 2;
 };
 
 // peter -> CA || CA -> avrouter
 message cert_push{
-	required bytes cert = 1;
+	required bytes figureprints = 1;
+	required bytes cert = 2;
 };
 
 message push_ok{
