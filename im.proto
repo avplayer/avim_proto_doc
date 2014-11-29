@@ -1,5 +1,6 @@
 
 package message;
+import public "address.proto";
 
 //=====================================================================================================
 // 下面的消息定义,都是定义在 avPacket 的 payload 里面的. payload 里的消息直接调用 serialization.hpp 反序列化出来
@@ -61,4 +62,7 @@ message message_packet {
 	// 每次发送就加 1
 	// 这个不是必须的, 但是要求有的话能有助于客户端排序好代码
 	optional uint64	serial = 2;
+
+	// 发送方地址, 群聊的话就是必须的
+	optional proto.av_address sender = 3;
 };
