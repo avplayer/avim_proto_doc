@@ -53,7 +53,7 @@ message avim_message{
 }
 
 // 这个是总消息, avpacket 里的 payload 存的就是这个, 当然还会有一些头信息, 这些都由 decode_message 处理了.
-message avim_message_packet {
+message message_packet {
 	// 聊天消息, 就是各种类型的消息的重复嘛.
 	// 所以这里用了个 repeated
 	repeated avim_message avim = 1;
