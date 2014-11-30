@@ -19,6 +19,8 @@ message img_message{
 	// 图片, 类型隐去.
 	required bytes image = 1;
 	optional bytes image_digest = 2;
+	// 表示是运动图片, 比如 GIF 格式
+	optional bool animated = 3;
 	optional string hlink = 4;
 };
 
