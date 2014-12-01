@@ -1,21 +1,30 @@
 package proto.ca;
 
 // ===========================================================================
-//   这个是 CA 签名服务器和 avrouter 以及 peter 所使用的 CA 客户端的交互协议
+//   这个是 CA 签名服务器和 avrouter 交互协议
 //   生成命令:
 //       protoc -I=. --cpp_out=. ca.proto
 // ===========================================================================
 
 // avrouter -> CA || CA -> peter
-message csr_push{
+message csr_request{
 	required bytes fingerprint = 1;
 	required bytes csr = 2;
 };
 
 // peter -> CA || CA -> avrouter
-message cert_push{
-	required bytes fingerprint = 1;
-	required bytes cert = 2;
+message csr_result{
+	enum csr_code {
+		OK = 0;
+		FAILED_INVALID_CSR = 1;
+		FAILED_DUPLICATED_NAME = 2;
+		// 无权限, 你不是 avrouter
+		// 其实是压根不鸟你, 不会给你这个答复, 呵呵
+		FAILED_NO_PRIVILEGE = 3;
+	}
+	required csr_code result = 1;
+	required bytes fingerprint = 2;
+	required bytes cert = 3;
 };
 
 message push_ok{
