@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 2.8.9)
 # include(./FindProtobuf.cmake)
+find_package(Protobuf REQUIRED)
 
 PROTOBUF_GENERATE_CPP(PROTO_ADDRESS PROTO_ADDRESS_HDRS address.proto)
 PROTOBUF_GENERATE_CPP(PROTO_MESSAGE PROTO_MESSAGE_HDRS message.proto)
@@ -11,3 +12,9 @@ add_library(avimproto STATIC ${PROTO_ADDRESS} ${PROTO_USER} ${PROTO_MESSAGE} ${P
 target_link_libraries(avimproto ${PROTOBUF_LIBRARIES})
 
 set_target_properties(avimproto PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
+target_include_directories(avimproto PUBLIC ${PROTOBUF_INCLUDE_DIRS})
+
+
+set_property(TARGET avimproto PROPERTY
+	INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_BINARY_DIR} ${PROTOBUF_INCLUDE_DIRS})
