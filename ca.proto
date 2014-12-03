@@ -27,39 +27,20 @@ message csr_result{
 	required bytes cert = 3;
 };
 
-message push_ok{
-	// push 过去的 csr 或者 cert 的指纹们
-	// 可以统一应答. 一般要求在 10个 push 内应答
-	// 因此这个列表最多就 10 个.
-	// 通常每个 push 都来一个应答
-	repeated bytes fingerprints = 1;
-};
-
 // avrouter -> CA || avim -> avrouter
 message cert_pull{
 	// RSA 公钥的 sha1 摘要
 	required bytes fingerprint = 1;
 };
 
-
-// peter -> CA
-// CA 会用 csr_push 应答哦!
-message csr_pull{
-	required bytes fingerprint = 1;
+message cert_pull_result{
+	// 没 cert 就没这个, 所以是 optional
+	optional bytes cert = 1;
 };
 
-
-// peter -> CA.
-// 获取待签发的 CSR 列表
-message csr_pendding {
-	// 等待列队长度
+// ca -> avrouter
+// ca 主动连接上 router 后发送宣誓!
+message ca_announce{
+	required string ca_name = 1;
+	optional int32 ca_level = 2;
 };
-
-message csr_pendding_list {
-	// 等待列队长度
-	required uint32 num = 1;
-
-	// 各个 CSR 的指纹 (客户 RSA 公钥的 sha1 摘要)
-	repeated bytes fingerprint = 2;
-};
-
