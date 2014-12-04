@@ -86,8 +86,8 @@ message user_register_result
 	enum user_register_result_code {
 		// 注册成功! 最兴奋的消息了
 		REGISTER_SUCCEED = 0;
-		// 注册成功, 但是 CA 需要时间下发, 等待吧
-		REGISTER_SUCCEED_PENDDING_CERT = 1;
+		// 没 CA 导致注册失败
+		REGISTER_FAILED_CA_BUSY = 1;
 
 		// 失败, 你手慢了, 名字已经有了
 		REGISTER_FAILED_NAME_TAKEN = 2;
