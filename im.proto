@@ -40,6 +40,11 @@ message group_request{
     optional string group_name = 3;
 };
 
+message group_list{
+    required uint32 count = 1;
+    repeated string member_addr = 2;
+};
+
 message group_response{
     enum result_code{
         OK = 0;
@@ -52,8 +57,8 @@ message group_response{
         GROUP_REQUEST_MAX = 10;
     };
     required result_code result = 1;
-    required response_type = 2;
-    optional string member_addr;
+    required response_type type = 2;
+    optional group_list member_list = 3;
 };
 
 // 这个是管理员下发的对称解密密钥消息, 该消息不会加密哦!
