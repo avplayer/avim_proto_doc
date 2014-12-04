@@ -30,6 +30,32 @@ message emoji_message{
 	optional bytes custom_image = 3;
 };
 
+message group_request{
+    enum request_type{
+        GROUP_REQUEST_LIST = 0;
+        GROUP_REQUEST_MAX = 10;
+    };
+    required request_type cmd = 1 [default = GROUP_REQUEST_LIST];
+    required uint32 group_id = 2;
+    optional string group_name = 3;
+};
+
+message group_response{
+    enum result_code{
+        OK = 0;
+        FAILED_INVALID_GROUP_ID = 1; // request group not exists
+		FAILED_NO_PRIVILEGE = 100;   // permission denied, maybe invalid member
+    };
+    // equal to request type
+    enum response_type{
+        GROUP_REQUEST_LIST = 0;
+        GROUP_REQUEST_MAX = 10;
+    };
+    required result_code result = 1;
+    required response_type = 2;
+    optional string member_addr;
+};
+
 // 这个是管理员下发的对称解密密钥消息, 该消息不会加密哦!
 message symmetry_encryption_key_distribution{
 	enum EncryptionType{
