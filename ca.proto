@@ -16,11 +16,11 @@ message csr_request{
 message csr_result{
 	enum csr_code {
 		OK = 0;
-		FAILED_INVALID_CSR = 1;
-		FAILED_DUPLICATED_NAME = 2;
+		FAILED_INVALID_CSR = 100;
+		FAILED_DUPLICATED_NAME = 101;
 		// 无权限, 你不是 avrouter
 		// 其实是压根不鸟你, 不会给你这个答复, 呵呵
-		FAILED_NO_PRIVILEGE = 3;
+		FAILED_NO_PRIVILEGE = 102;
 	}
 	required csr_code result = 1;
 	required bytes fingerprint = 2;
