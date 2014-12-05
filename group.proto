@@ -1,0 +1,15 @@
+package group;
+
+message group_list_request{
+    required uint32 group_id = 1;
+}
+
+message group_list_response{
+    enum result_code{
+        OK = 0;
+        FAILED_INVALID_GROUP_ID = 1; // request group not exists
+        FAILED_NO_PRIVILEGE = 100;   // permission denied, maybe invalid member
+    };
+    required result_code result = 1 [default = OK];
+    repeated string list = 2;
+}
