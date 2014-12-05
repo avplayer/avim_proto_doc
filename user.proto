@@ -1,4 +1,5 @@
 package proto;
+import public "address.proto";
 
 // ===========================================================================
 //   这个是新的 JACK 写的router服务器所使用的协议层消息定义 用户登录相关协议
@@ -128,3 +129,22 @@ message user_cert_lost_verify
 	// 取回密码的时候邮件里提供的安全验证
 	required string secret_code = 1;
 }
+
+
+
+////////////////////////////////////////////////////
+message buddy{
+	required av_address addr = 1;
+	// optional nick name set by user
+	optional string nick = 2;
+	repeated string labels = 3;
+}
+
+message buddy_list{
+	repeated buddy buddies = 1;
+};
+
+
+message request_buddy_list{
+	
+};
