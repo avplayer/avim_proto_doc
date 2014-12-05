@@ -1,7 +1,7 @@
-package group;
+package proto.group;
 import public "address.proto";
 
-message group_security_key {
+message security_key {
 	required bytes key = 1;
 	// 同时携带上一次key, 校验之用
 	required bytes prev_key = 2;
@@ -14,7 +14,7 @@ message group_security_key {
 };
 
 // 这个消息是群成员控制消息, 用来实现群成员控制
-message group_member_change{
+message member_change{
 	// 可选的发送者, 如果是群系统消息, 这个就是空的
 	// 否则就可能是管理员发的, 或者是其他成员发的
 	optional proto.av_address sender = 1;
@@ -22,8 +22,8 @@ message group_member_change{
 	// 管理员下发的新的对称加密密钥
 	// 群成员要注意检查发件人是否是管理员
 	// 注意这个消息通过 group 通道, 而是管理员给每个成员直接发送的消息
-	// 因此这个消息的类型是 is_control_message() && ! is_group_message()
-	optional group_security_key group_key = 2;
+	// 因此这个消息的类型是 is_control_message() && ! is_message()
+	optional security_key key = 2;
 
 	// bot 下发, 新成员通知
 	repeated proto.av_address new_bie = 3;
@@ -46,11 +46,11 @@ message group_member_change{
 	repeated buddy_state_notify buddy_status = 5;
 };
 
-message group_list_request{
-    required uint32 group_id = 1;
+message list_request{
+    required uint32 id = 1;
 }
 
-message group_list_response{
+message list_response{
     enum result_code{
         OK = 0;
         FAILED_INVALID_GROUP_ID = 1; // request group not exists
