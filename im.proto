@@ -35,14 +35,17 @@ message group_request{
         GROUP_REQUEST_LIST = 0;
         GROUP_REQUEST_MAX = 10;
     };
-    required request_type cmd = 1 [default = GROUP_REQUEST_LIST];
+    required request_type request_id = 1 [default = GROUP_REQUEST_LIST];
     required uint32 group_id = 2;
     optional string group_name = 3;
 };
 
 message group_list{
+    message member_list{
+        required string addr = 1;
+    };
     required uint32 count = 1;
-    repeated string member_addr = 2;
+    repeated member_list member_list_item = 2;
 };
 
 message group_response{
@@ -56,9 +59,9 @@ message group_response{
         GROUP_REQUEST_LIST = 0;
         GROUP_REQUEST_MAX = 10;
     };
-    required result_code result = 1;
-    required response_type type = 2;
-    optional group_list member_list = 3;
+    required result_code result = 1 [default = OK];
+    required uint32 response_id = 2 [default = 0];
+    optional group_list group_list_item = 3;
 };
 
 // 这个是管理员下发的对称解密密钥消息, 该消息不会加密哦!
@@ -84,6 +87,8 @@ message avim_message{
 	// 收到这个消息后, 之后的消息就得用这个密钥加密
 	// 不用这个密钥加密的消息都会被群友丢弃哦!
 	optional symmetry_encryption_key_distribution item_key = 20;
+    optional group_request item_group_request = 21;
+    optional group_response item_group_response = 22;
 }
 
 // 这个是总消息, avpacket 里的 payload 存的就是这个, 当然还会有一些头信息, 这些都由 decode_message 处理了.
