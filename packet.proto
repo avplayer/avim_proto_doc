@@ -63,3 +63,13 @@ message agmp {
 	optional TTLOUT ttlout = 3;
 }
 
+// 边界路由控制协议
+message bgp{
+	// 地址宣称, 用于向路由器声明地址, 使路由器改动路由表指向自己
+	// 由于 bgp 是签名的, 所以是无法伪造的, 防止他人进行路由攻击
+	// salt 必须是秒为单位的当前时间, unix 格式
+	required uint64 time_salt = 1;
+	// 路由器应该检查 这里的地址和 发件人是吻合的
+	optional av_address announce = 2;
+};
+
